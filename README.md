@@ -23,7 +23,7 @@ The first frame of the video will then appear on your screen, with the frame num
 <kbd>&#8593;</kbd>: Skip 100 frames  
 <kbd>&#8595;</kbd>: Go back 50 frames  
  
-## Coding: Key Semantics
+### Coding: Key Semantics
 <kbd>l</kbd> OR <kbd>a</kbd>: Left gaze  
 <kbd>r</kbd> OR <kbd>d</kbd>: Right gaze  
 <kbd>c</kbd> OR <kbd>s</kbd>: Center gaze  
