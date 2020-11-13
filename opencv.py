@@ -42,14 +42,14 @@ RIGHTGAZE2 = ord("d")
 CENTERGAZE = ord("c")
 CENTERGAZE2 = ord("s")
 
-UPGAZE = ord("w")
 BLINK = ord("b")
 
-AWAY = ord("y")
+AWAY = ord("w")
+UNKNOWN = ord("u")
 NA = ord("n")
 
-ENDOFPHASE = ord("E")
 
+ENDOFPHASE = ord("E")
 MISTAKE = ord("M")
 BASELINE = ord("B")
 TEST = ord("T")
@@ -88,12 +88,12 @@ def keyToGaze(key):
         return "left"
     if key == CENTERGAZE or key == CENTERGAZE2:
         return "center"
-    if key == UPGAZE:
-        return "up"
     if key == BLINK:
         return "blink"
     if key == AWAY:
         return "away"
+    if key == UNKNOWN:
+        return "unknown"
     if key == NA:
         return "NA"
     pass
@@ -163,7 +163,7 @@ def code(videoName, outputFile):
                           UP, DOWN, LEFT, RIGHT,
                           LEFTGAZE, RIGHTGAZE, CENTERGAZE,
                           LEFTGAZE2, RIGHTGAZE2, CENTERGAZE2,
-                          UPGAZE, BLINK, AWAY, NA, 
+                          BLINK, AWAY, NA, UNKNOWN,
                           BASELINE, TEST, ENDOFPHASE,
                           MISTAKE, FLUSH]:
             key = cv2.waitKey(0)
@@ -208,7 +208,7 @@ def code(videoName, outputFile):
             
         elif key in [LEFTGAZE, RIGHTGAZE, CENTERGAZE,
                      LEFTGAZE2, RIGHTGAZE2, CENTERGAZE2,
-                     UPGAZE, BLINK, AWAY, NA]:
+                     BLINK, AWAY, NA, UNKNOWN]:
 
             if frameStart and len(frameStart) != len(frameEnd):
                 frameEnd.append(currentFrame - 1)
