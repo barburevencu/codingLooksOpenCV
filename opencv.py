@@ -57,9 +57,6 @@ NA = ord("n")
 
 ENDOFPHASE = ord("E")
 MISTAKE = ord("M")
-BASELINE = ord("B")
-TEST = ord("T")
-HIGHLIGHT = ord("H")
 
 # Write to .csv
 FLUSH = ord("F")
@@ -167,8 +164,7 @@ def code(videoName, outputFile):
                           UP, DOWN, LEFT, RIGHT,
                           LEFTGAZE, RIGHTGAZE, CENTERGAZE,
                           LEFTGAZE2, RIGHTGAZE2, CENTERGAZE2,
-                          BLINK, AWAY, NA, UNKNOWN,
-                          BASELINE, TEST, ENDOFPHASE,
+                          BLINK, AWAY, NA, UNKNOWN, ENDOFPHASE,
                           MISTAKE, FLUSH]:
             key = cv2.waitKey(0)
         
@@ -195,13 +191,6 @@ def code(videoName, outputFile):
         # ====================================================================
         # CODE VIDEO  
         # ====================================================================
-        elif key in [BASELINE, HIGHLIGHT, TEST]:
-            if key == BASELINE:
-                currentPhase = "baseline" 
-            elif key == HIGHLIGHT:
-                currentPhase = "highlight"
-            else:
-                currentPhase = "test"
             
             # do not advance frame
             video.set(1, currentFrame - 1)            
