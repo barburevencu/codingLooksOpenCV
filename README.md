@@ -73,7 +73,7 @@ To code one subject, you need to:
 1. Go to the first frame of the first phase (Trial 1 Baseline; Frame 251), and code where the participant is looking in that frame (left, right, center, blink, look-away, or unknown) by pressing the corresponding key.
 2. Advance video until you reach a frame where the participant shifts gaze.  
 (If subject was looking **left** at Frame 251, and shifts to **center** at Frame 275, you need to press <kbd>l</kbd>/<kbd>a</kbd> at Frame 251 in Step 1, and <kbd>c</kbd>/<kbd>s</kbd> at Frame 275 in Step 2.)
-3. When you reach the end of the phase (Frame 300), press <<kbd>SHIFT</kbd> + <kbd>e</kbd> to mark the **E**nd of the current phase. Internally, the program handles the baseline-highlight-test automatically.
+3. When you reach the end of the phase (Frame 300), press <kbd>SHIFT</kbd> + <kbd>e</kbd> to mark the **E**nd of the current phase. Internally, the program handles the baseline-highlight-test automatically.
 4. Advance to the next phase (Trial 1 highlight) and repeat.
 
 That's it.
