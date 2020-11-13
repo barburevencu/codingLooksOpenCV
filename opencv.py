@@ -13,7 +13,7 @@ from pathlib import Path
 inputVideo = sys.argv[1]
 
 # Does the user want it resized?
-resizeParam = float(input("Please enter your desired video rescaling parameter: \n (1 = don't scale; 2 = make twice as small \n"))
+# resizeParam = float(input("Please enter your desired video rescaling parameter: \n (1 = don't scale; 2 = make twice as small \n"))
 
 
 # ID of subject to code
@@ -140,16 +140,14 @@ def code(videoName, outputFile):
         ret, frame = video.read()
         
         height, width, _ = frame.shape
-
-        newHeight = int(height // resizeParam)
-        newWidth = int(width // resizeParam)
-        
-        frame = cv2.resize(frame, (newWidth, newHeight))
         
         # Add current frame number to it
         currentFrame = int(video.get(cv2.CAP_PROP_POS_FRAMES))
+              
+        textPosition = (int(width/1.2), int(height/1.2))
         
-        cv2.putText(frame, str(int(currentFrame)), (800, 500), 
+        cv2.putText(frame, str(int(currentFrame)), 
+                    textPosition,
                     fontFace = cv2.FONT_HERSHEY_COMPLEX, 
                     fontScale = 1.5, 
                     color = (0, 165, 255), 
