@@ -6,20 +6,26 @@ Created on Mon Nov  9 17:18:17 2020
 @author: Barbu
 """
 
-import cv2, sys, csv, pandas as pd, os
+import cv2, sys, csv, pandas as pd
 from pathlib import Path
 
 # Which video?
 inputVideo = sys.argv[1]
 
 # Does the user want it resized?
-try:
-    resizeParam = float(sys.argv[3])
-except:
-    resizeParam = 1
+resizeParam = float(input("Please enter your desired video rescaling parameter: \n (1 = don't scale; 2 = make twice as small \n"))
+
+
+# ID of subject to code
+subjectID = int(input("Motherfucker ID: "))
+
+# experimental order of the subject
+experimentalOrder = int(input("Experimental Order: "))
 
 # Where to write?
 outputFile = sys.argv[2]
+
+
 
 
 # =============================================================================
@@ -189,7 +195,7 @@ def code(videoName, outputFile):
             video.set(1, total - 1)
         
         # ====================================================================
-        # CODE       
+        # CODE VIDEO  
         # ====================================================================
         elif key in [BASELINE, HIGHLIGHT, TEST]:
             if key == BASELINE:
@@ -198,6 +204,7 @@ def code(videoName, outputFile):
                 currentPhase = "highlight"
             else:
                 currentPhase = "test"
+            
             # do not advance frame
             video.set(1, currentFrame - 1)            
         
@@ -231,8 +238,8 @@ def code(videoName, outputFile):
         elif key == FLUSH or key == QUIT:
                        
             # create ID and expOrder column
-            ID = [int(sys.argv[4]) for i in range(len(phase))]
-            expOrder = [int(sys.argv[5]) for i in range(len(phase))]
+            ID = [subjectID for i in range(len(phase))]
+            expOrder = [experimentalOrder for i in range(len(phase))]
         
             
             if len(frameStart) == len(frameEnd) + 1:
