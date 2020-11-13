@@ -248,7 +248,7 @@ def code(videoName, outputFile):
             rows = zip(ID, expOrder, phase, 
                        frameStart, frameEnd, gazeDirection)      
             
-            with open(outputFile + ".csv", 'a') as csvfile:
+            with open(outputFile[:-5] + ".csv", 'a') as csvfile:
                 wr = csv.writer(csvfile, dialect = 'excel')
                 for row in rows:
                     wr.writerow(row)
@@ -262,7 +262,7 @@ def code(videoName, outputFile):
                 break
     
     
-    df = pd.read_csv(outputFile + ".csv", sep=',')
+    df = pd.read_csv(outputFile[:-5] + ".csv", sep=',')
     
     # correct the trialNumber column if it got messed up
     phase = df["phase"].tolist()
@@ -285,7 +285,7 @@ def code(videoName, outputFile):
     df = df[cols]
     
     # write to excel
-    df.to_excel(outputFile + ".xlsx", index = False)
+    df.to_excel(outputFile, index = False)
         
     # os.remove(outputFile + ".csv")
     
