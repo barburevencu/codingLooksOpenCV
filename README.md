@@ -33,8 +33,8 @@ The first frame of the video will then appear on your screen, with the frame num
 <kbd>n</kbd>: NA  
 <kbd>E</kbd>: End of current trial phase  
 <kbd>M</kbd>: Mistake  
-<kbd>B</kbd>: Set current phase to "Baseline"
+<kbd>B</kbd>: Set current phase to "Baseline"  
 <kbd>H</kbd>: Set current phase to "Highlight"  
 <kbd>T</kbd>: Set current phase to "Test"    
-<kbd>F</kbd>: Flush to .csv
+<kbd>F</kbd>: Flush to .csv  
 <kbd>Q</kbd>: Quit program (and get excel file)
