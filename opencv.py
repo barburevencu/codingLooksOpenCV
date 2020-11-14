@@ -4,6 +4,7 @@
 Created on Mon Nov  9 17:18:17 2020
 
 @author: Barbu
+@ Nov 14, looking time coding  (Basia)
 """
 
 import cv2, sys, csv, pandas as pd
@@ -13,10 +14,13 @@ from pathlib import Path
 inputVideo = sys.argv[1]
 
 # ID of subject to code
-subjectID = int(input("Participant ID: "))
+subjectID = int(input("Particiapnt ID: "))
 
 # experimental order of the subject
 experimentalOrder = int(input("Experimental Order: "))
+
+# Which task is to be coded?
+task = int(input("Task [1 for preferential looking, 2 for looking times]: "))
 
 # Where to write?
 outputFile = sys.argv[2].split('.')[0]
@@ -42,6 +46,8 @@ CENTERGAZE = ord("c")
 CENTERGAZE2 = ord("s")
 
 BLINK = ord("b")
+
+ONSCREEN = ord("o")
 
 AWAY = ord("w")
 UNKNOWN = ord("u")
@@ -86,6 +92,8 @@ def keyToGaze(key):
         return "center"
     if key == BLINK:
         return "blink"
+    if key == ONSCREEN:
+        return "looking"
     if key == AWAY:
         return "away"
     if key == UNKNOWN:
@@ -96,59 +104,68 @@ def keyToGaze(key):
 
 
 def switch(currentPhase):
-    if currentPhase == "baseline":
-        return "highlight"
-    elif currentPhase == "highlight":
-        return "test"
+    if task == 1:
+        if currentPhase == "baseline":
+            return "highlight"
+        elif currentPhase == "highlight":
+            return "test"
+        else:
+            return "baseline"
     else:
-        return "baseline"
+        if currentPhase == "testa":
+            return "testb"
+        elif currentPhase == "testb":
+            return "testa"
 
 def code(videoName, outputFile):
-    
+
     # Lists for data
     phase, frameStart, frameEnd, gazeDirection = [], [], [], []
-    
+
     # assume you start from trial 1
     trial = 1
-    
+
     # load video capture from file
     video = cv2.VideoCapture(videoName)
-    
+
     # window name and position
     cv2.namedWindow("video")
-    
+
     total = int(video.get(cv2.CAP_PROP_FRAME_COUNT))
     fps = round(video.get(cv2.CAP_PROP_FPS), 3)
     print("totalNumberOfFrames: ", total)
     print("framesPerSecond: ", fps)
-    
-    currentPhase = "baseline"
-    
+
+    if task == 1:
+        currentPhase = "baseline"
+    else:
+        currentPhase = "testa"
+
     while video.isOpened():
-        
+
         # Read video capture
         ret, frame = video.read()
-        
+
         height, width, _ = frame.shape
-        
+
         # Add current frame number to it
         currentFrame = int(video.get(cv2.CAP_PROP_POS_FRAMES))
-              
+
         textPosition = (int(width/1.2), int(height/1.2))
-        
+
         cv2.putText(frame, str(int(currentFrame)),
                     textPosition,
                     fontFace = cv2.FONT_HERSHEY_COMPLEX,
                     fontScale = 1.5,
                     color = (0, 165, 255),
                     thickness = 3)
-        
+
         # Display each frame
         cv2.imshow("video", frame)
-        
+
         # Show one frame at a time
         key = cv2.waitKey(0)
-        
+
         # =============================================================================
         # CONTROL VIDEO
         # =============================================================================
@@ -157,56 +174,56 @@ def code(videoName, outputFile):
                           UP, DOWN, LEFT, RIGHT,
                           LEFTGAZE, RIGHTGAZE, CENTERGAZE,
                           LEFTGAZE2, RIGHTGAZE2, CENTERGAZE2,
-                          BLINK, AWAY, NA, UNKNOWN, ENDOFPHASE,
+                          BLINK, ONSCREEN, AWAY, NA, UNKNOWN, ENDOFPHASE,
                           MISTAKE, FLUSH]:
             key = cv2.waitKey(0)
-        
+
         # STOP FRAME IF AT END-OF-FILE
         if key == RIGHT and currentFrame == total:
             video.set(1, currentFrame - 1)
-        
+
         # GO BACK 1 FRAME IF LEFT-ARROW
         if key == LEFT:
             video.set(1, currentFrame - 2)
-        
+
         # SKIP 100 FRAMES IF UP-ARROW
         elif key == UP:
             video.set(1, currentFrame + 99)
-        
+
         # GO BACK 50 FRAMES IF DOWN-ARROW
         elif key == DOWN:
             video.set(1, currentFrame - 51)
-        
+
         # GO TO END-OF-VIDEO IF 'E'
         elif key == END:
             video.set(1, total - 1)
-        
+
         # ====================================================================
         # CODE VIDEO
         # ====================================================================
-            
+
             # do not advance frame
             video.set(1, currentFrame - 1)
-        
+
         elif key == ENDOFPHASE:
             currentPhase = switch(currentPhase)
             frameEnd.append(currentFrame)
             video.set(1, currentFrame - 1)
-            
+
         elif key in [LEFTGAZE, RIGHTGAZE, CENTERGAZE,
                      LEFTGAZE2, RIGHTGAZE2, CENTERGAZE2,
-                     BLINK, AWAY, NA, UNKNOWN]:
+                     BLINK, ONSCREEN, AWAY, NA, UNKNOWN]:
 
             if frameStart and len(frameStart) != len(frameEnd):
                 frameEnd.append(currentFrame - 1)
-            
+
             frameStart.append(currentFrame)
             gazeDirection.append(keyToGaze(key))
-            
+
             # do not advance frame
             video.set(1, currentFrame - 1)
             phase.append(currentPhase)
-            
+
         elif key == MISTAKE:
             if frameEnd:
                 frameEnd.pop(-1)
@@ -214,64 +231,70 @@ def code(videoName, outputFile):
             gazeDirection.pop(-1)
             phase.pop(-1)
             video.set(1, currentFrame - 1)
-    
+
         elif key == FLUSH or key == QUIT:
-                       
+
             # create ID and expOrder column
             ID = [subjectID for i in range(len(phase))]
             expOrder = [experimentalOrder for i in range(len(phase))]
-        
-            
+
+
             if len(frameStart) == len(frameEnd) + 1:
                 frameEnd.append(currentFrame)
-            
+
             rows = zip(ID, expOrder, phase,
                        frameStart, frameEnd, gazeDirection)
-            
+
             with open(outputFile + ".csv", 'a') as csvfile:
                 wr = csv.writer(csvfile, dialect = 'excel')
                 for row in rows:
                     wr.writerow(row)
-            
+
             video.set(1, currentFrame - 1)
-            
+
             if key == FLUSH:
                 phase, frameStart, frameEnd, gazeDirection = [], [], [], []
-                
+
             else:
                 break
-    
-    
+
+
     df = pd.read_csv(outputFile + ".csv", sep=',')
-    
+
     # correct the trialNumber column if it got messed up
     phase = df["phase"].tolist()
 
     trial = 1
     trialNumber = []
 
-    for i, j in zip(range(0, len(phase) - 1), range(1, len(phase))):
-        trialNumber.append(trial)
-        if phase[i] == "test" and phase[j] == "baseline":
-            trial += 1
-        
+    if task == 1:
+        for i, j in zip(range(0, len(phase) - 1), range(1, len(phase))):
+            trialNumber.append(trial)
+            if phase[i] == "test" and phase[j] == "baseline":
+                trial += 1
+    else:
+        for i, j in zip(range(0, len(phase) - 1), range(1, len(phase))):
+            trialNumber.append(trial)
+            if phase[i] == "testa" and phase[j] == "testb":
+                trial += 1
+
     trialNumber.append(trial)
 
     df['trialNumber'] = trialNumber
-    
+
     # rearrange column order
     cols = df.columns.tolist()
     cols = cols[0:2] + cols[-1:] + cols[2:-1]
     df = df[cols]
-    
+
     # write to excel
     df.to_excel(outputFile + ".xlsx", index = False)
-        
+
     # os.remove(outputFile + ".csv")
-    
+
     # Release capture object
     video.release()
-    
+
     # Exit and destroy all windows
     cv2.destroyAllWindows()
 
