@@ -23,10 +23,7 @@ subjectID = int(input("Motherfucker ID: "))
 experimentalOrder = int(input("Experimental Order: "))
 
 # Where to write?
-outputFile = sys.argv[2]
-
-
-
+outputFile = sys.argv[2].split('.')[0]
 
 # =============================================================================
 # # KEY SEMANTICS
@@ -235,7 +232,7 @@ def code(videoName, outputFile):
             rows = zip(ID, expOrder, phase, 
                        frameStart, frameEnd, gazeDirection)      
             
-            with open(outputFile[:-5] + ".csv", 'a') as csvfile:
+            with open(outputFile + ".csv", 'a') as csvfile:
                 wr = csv.writer(csvfile, dialect = 'excel')
                 for row in rows:
                     wr.writerow(row)
@@ -249,7 +246,7 @@ def code(videoName, outputFile):
                 break
     
     
-    df = pd.read_csv(outputFile[:-5] + ".csv", sep=',')
+    df = pd.read_csv(outputFile + ".csv", sep=',')
     
     # correct the trialNumber column if it got messed up
     phase = df["phase"].tolist()
@@ -272,7 +269,7 @@ def code(videoName, outputFile):
     df = df[cols]
     
     # write to excel
-    df.to_excel(outputFile, index = False)
+    df.to_excel(outputFile + ".xlsx", index = False)
         
     # os.remove(outputFile + ".csv")
     
