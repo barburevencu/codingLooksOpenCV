@@ -12,10 +12,6 @@ from pathlib import Path
 # Which video?
 inputVideo = sys.argv[1]
 
-# Does the user want it resized?
-# resizeParam = float(input("Please enter your desired video rescaling parameter: \n (1 = don't scale; 2 = make twice as small \n"))
-
-
 # ID of subject to code
 subjectID = int(input("Motherfucker ID: "))
 
@@ -65,7 +61,7 @@ QUIT = ord("q")
 myFile = Path(outputFile + ".csv")
 if not myFile.exists():
     with open(outputFile + ".csv", 'w') as csvfile:
-        lst = ["ID", "expOrder", "phase", 
+        lst = ["ID", "expOrder", "phase",
                "frameStart", "frameEnd", "gazeDirection"]
         wr = csv.writer(csvfile, dialect='excel')
         wr.writerow(lst)
@@ -140,11 +136,11 @@ def code(videoName, outputFile):
               
         textPosition = (int(width/1.2), int(height/1.2))
         
-        cv2.putText(frame, str(int(currentFrame)), 
+        cv2.putText(frame, str(int(currentFrame)),
                     textPosition,
-                    fontFace = cv2.FONT_HERSHEY_COMPLEX, 
-                    fontScale = 1.5, 
-                    color = (0, 165, 255), 
+                    fontFace = cv2.FONT_HERSHEY_COMPLEX,
+                    fontScale = 1.5,
+                    color = (0, 165, 255),
                     thickness = 3)
         
         # Display each frame
@@ -154,10 +150,10 @@ def code(videoName, outputFile):
         key = cv2.waitKey(0)
         
         # =============================================================================
-        # CONTROL VIDEO        
+        # CONTROL VIDEO
         # =============================================================================
         # ADVANCE 1 FRAME IF RIGHT-ARROW
-        while key not in [QUIT, END, 
+        while key not in [QUIT, END,
                           UP, DOWN, LEFT, RIGHT,
                           LEFTGAZE, RIGHTGAZE, CENTERGAZE,
                           LEFTGAZE2, RIGHTGAZE2, CENTERGAZE2,
@@ -186,16 +182,16 @@ def code(videoName, outputFile):
             video.set(1, total - 1)
         
         # ====================================================================
-        # CODE VIDEO  
+        # CODE VIDEO
         # ====================================================================
             
             # do not advance frame
-            video.set(1, currentFrame - 1)            
+            video.set(1, currentFrame - 1)
         
         elif key == ENDOFPHASE:
             currentPhase = switch(currentPhase)
             frameEnd.append(currentFrame)
-            video.set(1, currentFrame - 1) 
+            video.set(1, currentFrame - 1)
             
         elif key in [LEFTGAZE, RIGHTGAZE, CENTERGAZE,
                      LEFTGAZE2, RIGHTGAZE2, CENTERGAZE2,
@@ -217,7 +213,7 @@ def code(videoName, outputFile):
             frameStart.pop(-1)
             gazeDirection.pop(-1)
             phase.pop(-1)
-            video.set(1, currentFrame - 1) 
+            video.set(1, currentFrame - 1)
     
         elif key == FLUSH or key == QUIT:
                        
@@ -229,15 +225,15 @@ def code(videoName, outputFile):
             if len(frameStart) == len(frameEnd) + 1:
                 frameEnd.append(currentFrame)
             
-            rows = zip(ID, expOrder, phase, 
-                       frameStart, frameEnd, gazeDirection)      
+            rows = zip(ID, expOrder, phase,
+                       frameStart, frameEnd, gazeDirection)
             
             with open(outputFile + ".csv", 'a') as csvfile:
                 wr = csv.writer(csvfile, dialect = 'excel')
                 for row in rows:
                     wr.writerow(row)
             
-            video.set(1, currentFrame - 1) 
+            video.set(1, currentFrame - 1)
             
             if key == FLUSH:
                 phase, frameStart, frameEnd, gazeDirection = [], [], [], []
@@ -252,9 +248,9 @@ def code(videoName, outputFile):
     phase = df["phase"].tolist()
 
     trial = 1
-    trialNumber = []    
+    trialNumber = []
 
-    for i, j in zip(range(0, len(phase) - 1), range(1, len(phase))): 
+    for i, j in zip(range(0, len(phase) - 1), range(1, len(phase))):
         trialNumber.append(trial)
         if phase[i] == "test" and phase[j] == "baseline":
             trial += 1
