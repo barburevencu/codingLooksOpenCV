@@ -13,7 +13,7 @@ from pathlib import Path
 inputVideo = sys.argv[1]
 
 # ID of subject to code
-subjectID = int(input("Motherfucker ID: "))
+subjectID = int(input("Participant ID: "))
 
 # experimental order of the subject
 experimentalOrder = int(input("Experimental Order: "))
