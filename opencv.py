@@ -114,10 +114,10 @@ def switch(currentPhase):
         else:
             return "baseline"
     else:
-        if currentPhase == "testa":
-            return "testb"
-        elif currentPhase == "testb":
-            return "testa"
+        if currentPhase == "alternate1":
+            return "alternate2"
+        elif currentPhase == "alternate1":
+            return "alternate2"
 
 def code(videoName, outputFile):
 
@@ -141,7 +141,7 @@ def code(videoName, outputFile):
     if task == 1:
         currentPhase = "baseline"
     else:
-        currentPhase = "testa"
+        currentPhase = "alternate1"
 
     while video.isOpened():
 
@@ -267,7 +267,8 @@ def code(videoName, outputFile):
 
     trial = 1
     trialNumber = []
-
+    
+    # Add Trial Number Column based on Phase information
     if task == 1:
         for i, j in zip(range(0, len(phase) - 1), range(1, len(phase))):
             trialNumber.append(trial)
@@ -276,27 +277,41 @@ def code(videoName, outputFile):
     else:
         for i, j in zip(range(0, len(phase) - 1), range(1, len(phase))):
             trialNumber.append(trial)
-            if phase[i] == "testa" and phase[j] == "testb":
+            if phase[i] !=  phase[j]:
                 trial += 1
 
     trialNumber.append(trial)
-
+    
     df['trialNumber'] = trialNumber
 
-    # rearrange column order
-    cols = df.columns.tolist()
-    cols = cols[0:2] + cols[-1:] + cols[2:-1]
-    df = df[cols]
+    # Rearrange column order for Preferential Looking
+    if task == 1:
+        cols = df.columns.tolist()
+        
+        # (ID, expOrder) + trialNumber + (phase, frameStart, frameEnd, gazeDirection)
+        cols = cols[:2] + cols[-1:] + cols[2:-1]
+        df = df[cols]
 
-    # write to excel
+    # Turn frames into seconds & rearrange column order for Looking Time
+    if task == 2:
+        df['timeStart'] = df['frameStart'] / fps
+        df['timeEnd'] = df['frameEnd'] / fps
+        cols = df.columns.tolist()
+        print(cols)
+        
+        # (ID, expOrder) + trialNumber + (frameStart, frameEnd) + (timeStart, timeEnd) + gazeDirection
+        cols = cols[:2] + cols[-3:-2] + cols[3:5] + cols[-2:] + cols[5:6]
+
+        df = df[cols]
+        
+    # Write to excel
     df.to_excel(outputFile + ".xlsx", index = False)
-
-    # os.remove(outputFile + ".csv")
-
+    
     # Release capture object
     video.release()
 
-    # Exit and destroy all windows
+    # Exit and remove windows
     cv2.destroyAllWindows()
 
-code(inputVideo, outputFile)
+if __name__ == '__main__':
+    code(inputVideo, outputFile)
