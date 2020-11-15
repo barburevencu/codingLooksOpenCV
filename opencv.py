@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Mon Nov  9 17:18:17 2020
+Created on Mon Nov 9 17:18:17 2020
 
 @author: Barbu
-@ Nov 14, looking time coding  (Basia)
+
+Added on Sat Nov 14
+@looking time coding:  Basia
 """
 
 import cv2, sys, csv, pandas as pd
@@ -257,7 +259,6 @@ def code(videoName, outputFile):
 
             else:
                 break
-
 
     df = pd.read_csv(outputFile + ".csv", sep=',')
 
