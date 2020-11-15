@@ -16,13 +16,13 @@ from pathlib import Path
 inputVideo = sys.argv[1]
 
 # ID of subject to code
-subjectID = int(input("Particiapnt ID: "))
+subjectID = int(input("Participant ID: "))
 
 # experimental order of the subject
 experimentalOrder = int(input("Experimental Order: "))
 
 # Which task is to be coded?
-task = int(input("Task [1 for preferential looking, 2 for looking times]: "))
+task = int(input("Task (1 for preferential looking, 2 for looking times): "))
 
 # Where to write?
 outputFile = sys.argv[2].split('.')[0]
