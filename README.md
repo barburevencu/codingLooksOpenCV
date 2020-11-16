@@ -4,21 +4,21 @@ codingLooksOpenCV
 # Description
 A program for coding preferential looking studies for infancy research from video files (think manual offline eyetracker). 
 
-For now, you can chose to video code one of the two experimental structures.
+For now, you can choose to video code one of the two experimental structures.
 
 ## 1 Preferential looking
-If you chose preferential looking, the program assumes that each trial has the following structure:
+If you choose preferential looking, the program assumes that each trial has the following structure:
 
-*Trial n:* Baseline
+Trial *n*: Baseline
 
-*Trial n:* Highlight
+Trial *n*: Highlight
 
-*Trial n* Test
+Trial *n*: Test
 
 ## 2 Looking time
-If you chose looking time, the program assumes that each trial has the following structure:
+If you choose looking time, the program assumes that each trial has the following structure:
 
-*Trial n* Trial
+Trial *n*: Test
 
 # Usage
 ## Starting the program
@@ -26,8 +26,11 @@ The program can be launched from the terminal/command line. After changing the w
 ```
 python openCV.py NAME-OF-VIDEO.mp4 NAME-OF-OUTPUT-FILE.xlsx
 ```
+
+**Important: The video needs to be in ```.mp4``` format.**
+
 ### Initializing relevant parameters
-First, the program will ask you to pass it the *subject ID* and the *experimental order*. This information will be appended to the output file, and will come handy in data analysis to match the observation to information about experimental manipulation.
+First, the program will ask you to pass it the *subject ID* and the *experimental order*. This information will be appended to the output file, and will be handy in data analysis to match the observation to information about experimental manipulation.
 
 Them, it will ask you to specify which *task* you want to code (1: preferential looking, 2: looking time).
 
@@ -128,7 +131,7 @@ When you quit the program, an excel file will be written to the current working 
 4. Press <kbd>SHIFT</kbd> + <kbd>f</kbd>. The program will write what you have inputted so far to a ```.csv``` file. 
 5. Advance to the next phase (Trial 1 highlight) and repeat.
 
-*That's it.*
+That's it.
 
 After you save your coding (step 4), you can  quit the program before finishing one whole subject, and continue coding later on.
 
@@ -140,9 +143,10 @@ If you press a wrong non-inert key or change your mind, you can signal you have 
 
 When you quit the program, an excel file will be written to the current working directory (the one where ```openCV.py``` and video are located), which will have the following structure:
 
-| ID| expOrder | trialNumber | frameStart | frameEnd | gazeDirection |
-|:-:|:--------:|:-----------:|:----------:|:--------:|:-------------:|   
-| 1 | 7        | 1           | 251        | 274      | onscreen      |
-| 1 | 7        | 1           | 275        | 300      | away          |
-| 1 | 7        | 2           | 351        | 450      | onscreen      |
+| ID| expOrder | trialNumber | frameStart | frameEnd | timeStart | timEnd | gazeDirection |
+|:-:|:--------:|:-----------:|:----------:|:--------:|:---------:|:------:|:-------------:|   
+| 1 | 7        | 1           | 251        | 274      | 4.204     | 4.589  | onscreen      |
+| 1 | 7        | 1           | 275        | 300      | 4.606     | 5.025  | away          |
+| 1 | 7        | 2           | 351        | 450      | 5.879     | 7.537  | onscreen      |
 
+Based on the number of frames/second of the video (in this example, 59.7), the output includes two columns, ```timeStart``` and ```timeEnd```, which turn the corresponding frame columns into seconds.
