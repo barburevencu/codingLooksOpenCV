@@ -1,6 +1,11 @@
 # Project Name
 codingLooksOpenCV
 
+#
+Barbu, could we add here what softwares/toolboxes should be installed for it to work?
+- Python ver ? (Would it make sense to recommend Anaconda distribution?)
+- opencv (Shall we add terminal installation instructions?)
+
 # Description
 A program for coding preferential looking studies for infancy research from video files (think manual offline eyetracker). 
 
