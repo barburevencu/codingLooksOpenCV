@@ -5,7 +5,7 @@ codingLooksOpenCV
 - Python 3.8 or above
 - OpenCV-python-headless 4.4 or above
 
-We recommend installing the Anaconda distribution via Homebrew following [these instructions](https://medium.com/ayuth/install-anaconda-on-macos-with-homebrew-c94437d63a37), then installing ```opencv by using pip install opencv-python-headless```.
+We recommend installing the Anaconda distribution via Homebrew following [these instructions](https://medium.com/ayuth/install-anaconda-on-macos-with-homebrew-c94437d63a37), then installing ```opencv``` via ```pip install opencv-python-headless```.
 
 # Description
 A program for coding preferential looking studies for infancy research from video files (think manual offline eyetracker). 
