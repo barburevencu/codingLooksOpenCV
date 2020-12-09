@@ -57,10 +57,10 @@ NA = ord("n")
 
 
 ENDOFPHASE = ord("E")
-MISTAKE = ord("M")
+UNDO = ord("Z")
 
 # Write to .csv
-FLUSH = ord("F")
+SAVE = ord("S")
 
 # Quit
 QUIT = ord("q")
@@ -177,7 +177,7 @@ def code(videoName, outputFile):
                           LEFTGAZE, RIGHTGAZE, CENTERGAZE,
                           LEFTGAZE2, RIGHTGAZE2, CENTERGAZE2,
                           BLINK, ONSCREEN, AWAY, NA, UNKNOWN, ENDOFPHASE,
-                          MISTAKE, FLUSH]:
+                          UNDO, SAVE]:
             key = cv2.waitKey(0)
 
         # STOP FRAME IF AT END-OF-FILE
@@ -226,7 +226,7 @@ def code(videoName, outputFile):
             video.set(1, currentFrame - 1)
             phase.append(currentPhase)
 
-        elif key == MISTAKE:
+        elif key == UNDO:
             if frameEnd:
                 frameEnd.pop(-1)
             frameStart.pop(-1)
@@ -234,7 +234,7 @@ def code(videoName, outputFile):
             phase.pop(-1)
             video.set(1, currentFrame - 1)
 
-        elif key == FLUSH or key == QUIT:
+        elif key == SAVE or key == QUIT:
 
             # create ID and expOrder column
             ID = [subjectID for i in range(len(phase))]
@@ -254,7 +254,7 @@ def code(videoName, outputFile):
 
             video.set(1, currentFrame - 1)
 
-            if key == FLUSH:
+            if key == SAVE:
                 phase, frameStart, frameEnd, gazeDirection = [], [], [], []
 
             else:
