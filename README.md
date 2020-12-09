@@ -10,7 +10,7 @@ We recommend installing the Anaconda distribution via Homebrew following [these 
 # Description
 A program for coding preferential looking studies for infancy research from video files (think manual offline eyetracker). 
 
-For now, you can choose to video code one of the two experimental structures.
+For now, you can choose to video code one of the experimental structures.
 
 ## 1 Preferential looking
 If you choose preferential looking, the program assumes that each trial has the following structure:
