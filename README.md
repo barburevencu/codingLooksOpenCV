@@ -66,10 +66,10 @@ Use the keyboard arrows to navigate:
 
 #### Other
 <kbd>SHIFT</kbd> + <kbd>e</kbd>: **E**nd of current trial phase  
-<kbd>SHIFT</kbd> + <kbd>m</kbd>: **M**istake  
+<kbd>SHIFT</kbd> + <kbd>z</kbd>: Undo last gaze coding 
 
 #### Data & Global Esc
-<kbd>SHIFT</kbd> + <kbd>f</kbd>: **F**lush to .csv  
+<kbd>SHIFT</kbd> + <kbd>s</kbd>: **S**ave to .csv  
 <kbd>q</kbd>: **q**uit program (and get excel file)
 
 All other keys are inert.
