@@ -96,7 +96,7 @@ Every time you press one of the GAZE keys, the program will store several variab
 2. Advance video until you reach a frame where the participant shifts gaze.  
 (If subject was looking **left** at Frame 251, and shifts to **center** at Frame 275, you need to press <kbd>l</kbd>/<kbd>a</kbd> at Frame 251 in Step 1, and <kbd>c</kbd>/<kbd>s</kbd> at Frame 275 in Step 2.)
 3. When you reach the end of the phase (Frame 300), press <kbd>SHIFT</kbd> + <kbd>e</kbd> to mark the **E**nd of the current phase. Internally, the program handles the baseline-highlight-test automatically.
-4. Press <kbd>SHIFT</kbd> + <kbd>f</kbd>. The program will write what you have inputted so far to a ```.csv``` file. 
+4. Press <kbd>SHIFT</kbd> + <kbd>s</kbd>. The program will write what you have inputted so far to a ```.csv``` file. 
 5. Advance to the next phase (Trial 1 highlight) and repeat.
 
 That's it.
@@ -105,7 +105,7 @@ After you save your coding (step 4), you can  quit the program before finishing 
 
 **What to do when you make a mistake?**
 
-If you press a wrong non-inert key or change your mind, you can signal you have made a mistake by pressing <kbd>SHIFT</kbd> + <kbd>m</kbd>, without needing to go back to the frame where you made the mistake. The program will simply remove the last command you gave it. Pressing an inert key by mistake should **not** be corrected.
+If you press a wrong non-inert key or change your mind, you can signal you have made a mistake by pressing <kbd>SHIFT</kbd> + <kbd>z</kbd>, without needing to go back to the frame where you made the mistake. The program will simply remove the last command you gave it. Pressing an inert key by mistake should **not** be corrected.
 
 **What happens when you quit the program?**
 
@@ -134,7 +134,7 @@ When you quit the program, an excel file will be written to the current working 
 2. Advance video until you reach a frame where the participant shifts gaze.  
 (e.g., If subject was looking **onscreen** at Frame 251, and shifts to **away** at Frame 275, you need to press <kbd>o</kbd> at Frame 251 in Step 1, and <kbd>w</kbd> in Step 2.)
 3. When you reach the end of the phase (Frame 300), press <kbd>SHIFT</kbd> + <kbd>e</kbd> to mark the **E**nd of the current phase. Internally, the program will switch to the next trial.
-4. Press <kbd>SHIFT</kbd> + <kbd>f</kbd>. The program will write what you have inputted so far to a ```.csv``` file. 
+4. Press <kbd>SHIFT</kbd> + <kbd>s</kbd>. The program will write what you have inputted so far to a ```.csv``` file. 
 5. Advance to the next phase (Trial 1 highlight) and repeat.
 
 That's it.
@@ -143,7 +143,7 @@ After you save your coding (step 4), you can  quit the program before finishing 
 
 **What to do when you make a mistake?**
 
-If you press a wrong non-inert key or change your mind, you can signal you have made a mistake by pressing <kbd>SHIFT</kbd> + <kbd>m</kbd>, without needing to go back to the frame where you made the mistake. The program will simply remove the last command you gave it. Pressing an inert key by mistake should **not** be corrected.
+If you press a wrong non-inert key or change your mind, you can signal you have made a mistake by pressing <kbd>SHIFT</kbd> + <kbd>z</kbd>, without needing to go back to the frame where you made the mistake. The program will simply remove the last command you gave it. Pressing an inert key by mistake should **not** be corrected.
 
 **What happens when you quit the program?**
 
