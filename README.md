@@ -65,11 +65,11 @@ Use the keyboard arrows to navigate:
 <kbd>n</kbd>: **NA**  
 
 #### Other
-<kbd>SHIFT</kbd> + <kbd>e</kbd>: **E**nd of current trial phase  
-<kbd>SHIFT</kbd> + <kbd>z</kbd>: Undo last gaze coding 
+<kbd>SHIFT</kbd> + <kbd>e</kbd>: **e**nd of current trial phase  
+<kbd>SHIFT</kbd> + <kbd>z</kbd>: **undo** last gaze coding 
 
 #### Data & Global Esc
-<kbd>SHIFT</kbd> + <kbd>s</kbd>: **S**ave to .csv  
+<kbd>SHIFT</kbd> + <kbd>s</kbd>: **s**ave to .csv  
 <kbd>q</kbd>: **q**uit program (and get excel file)
 
 All other keys are inert.
