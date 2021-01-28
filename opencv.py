@@ -57,7 +57,7 @@ NA = ord("n")
 
 
 ENDOFPHASE = ord("E")
-UNDO = ord("Z")
+MISTAKE = ord("Z")
 
 # Write to .csv
 SAVE = ord("S")
@@ -177,7 +177,7 @@ def code(videoName, outputFile):
                           LEFTGAZE, RIGHTGAZE, CENTERGAZE,
                           LEFTGAZE2, RIGHTGAZE2, CENTERGAZE2,
                           BLINK, ONSCREEN, AWAY, NA, UNKNOWN, ENDOFPHASE,
-                          UNDO, SAVE]:
+                          MISTAKE, SAVE]:
             key = cv2.waitKey(0)
 
         # STOP FRAME IF AT END-OF-FILE
@@ -190,7 +190,10 @@ def code(videoName, outputFile):
 
         # SKIP 100 FRAMES IF UP-ARROW
         elif key == UP:
-            video.set(1, currentFrame + 99)
+            if (currentFrame + 99) < (total - 600):
+                video.set(1, currentFrame + 99)
+            else:
+                video.set(1, currentFrame - 1)
 
         # GO BACK 50 FRAMES IF DOWN-ARROW
         elif key == DOWN:
@@ -208,7 +211,10 @@ def code(videoName, outputFile):
             video.set(1, currentFrame - 1)
 
         elif key == ENDOFPHASE:
+            print("Frame " + str(currentFrame) + ": End of " + currentPhase)
+            print("-----------------------")
             currentPhase = switch(currentPhase)
+            print("Next command will start " + currentPhase + ".")
             frameEnd.append(currentFrame)
             video.set(1, currentFrame - 1)
 
@@ -218,15 +224,32 @@ def code(videoName, outputFile):
 
             if frameStart and len(frameStart) != len(frameEnd):
                 frameEnd.append(currentFrame - 1)
-
+            
             frameStart.append(currentFrame)
             gazeDirection.append(keyToGaze(key))
+            
+            if key == LEFTGAZE or key == LEFTGAZE2:
+                print("Frame " + str(currentFrame) + ": Baby's looking LEFT.")
+            elif key == RIGHTGAZE or key == RIGHTGAZE2:
+                print("Frame " + str(currentFrame) + ": Baby's looking RIGHT.")
+            elif key == CENTERGAZE or key == CENTERGAZE2:
+                print("Frame " + str(currentFrame) + ": Baby's looking to the CENTER.")
+            elif key == BLINK:
+                print("Frame " + str(currentFrame) + ": Baby's BLINKING.")
+            elif key == AWAY:
+                print("Frame " + str(currentFrame) + ": Baby's LOOKING AWAY.")
+            elif key == NA:
+                print("Frame " + str(currentFrame) + ": Start of HIGHLIGHT phase.")
+            elif key == UNKNOWN:
+                print("Frame " + str(currentFrame) + ": UNKNOWN gaze direction.")
 
+            
             # do not advance frame
             video.set(1, currentFrame - 1)
             phase.append(currentPhase)
 
-        elif key == UNDO:
+        elif key == MISTAKE:
+            print("Undo last command.")
             if frameEnd:
                 frameEnd.pop(-1)
             frameStart.pop(-1)
@@ -235,7 +258,8 @@ def code(videoName, outputFile):
             video.set(1, currentFrame - 1)
 
         elif key == SAVE or key == QUIT:
-
+            if key == SAVE:
+                print("Saved progress to .csv")
             # create ID and expOrder column
             ID = [subjectID for i in range(len(phase))]
             expOrder = [experimentalOrder for i in range(len(phase))]
