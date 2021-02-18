@@ -190,14 +190,14 @@ def code(videoName, outputFile):
 
         # SKIP 100 FRAMES IF UP-ARROW
         elif key == UP:
-            if (currentFrame + 99) < (total - 600):
-                video.set(1, currentFrame + 99)
+            if (currentFrame + 59) < (total - 600):
+                video.set(1, currentFrame + 59)
             else:
                 video.set(1, currentFrame - 1)
 
         # GO BACK 50 FRAMES IF DOWN-ARROW
         elif key == DOWN:
-            video.set(1, currentFrame - 51)
+            video.set(1, currentFrame - 31)
 
         # GO TO END-OF-VIDEO IF 'E'
         elif key == END:
@@ -237,7 +237,7 @@ def code(videoName, outputFile):
             elif key == BLINK:
                 print("Frame " + str(currentFrame) + ": Baby's BLINKING.")
             elif key == AWAY:
-                print("Frame " + str(currentFrame) + ": Baby's LOOKING AWAY.")
+                print("Frame " + str(currentFrame) + ": Baby's looking AWAY.")
             elif key == NA:
                 print("Frame " + str(currentFrame) + ": Start of HIGHLIGHT phase.")
             elif key == UNKNOWN:
