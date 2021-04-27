@@ -2,10 +2,12 @@
 codingLooksOpenCV
 
 # Requirements
-- Python 3.8 or above
+- Python 3.7 or above
 - OpenCV-python-headless 4.4 or above
 
-We recommend installing the Anaconda distribution via Homebrew following [these instructions](https://medium.com/ayuth/install-anaconda-on-macos-with-homebrew-c94437d63a37), then installing ```opencv``` via ```pip install opencv-python-headless```.
+For Mac, we recommend installing the Anaconda distribution via Homebrew following [these instructions](https://medium.com/ayuth/install-anaconda-on-macos-with-homebrew-c94437d63a37), then installing ```opencv``` via ```pip install opencv-python-headless```.
+
+For Windows, install Anaconda following [these instructions](https://docs.anaconda.com/anaconda/install/windows/), then install ```opencv``` in the Anaconda Command Prompt using ```pip install opencv-python```.
 
 # Description
 A program for coding preferential looking studies for infancy research from video files (think manual offline eyetracker). 
@@ -30,7 +32,7 @@ Trial *n*: Test
 ## Starting the program
 The program can be launched from the terminal/command line. After changing the working directory to the location of ```openCV.py``` and of the video to be coded, run:
 ```
-python openCV.py NAME-OF-VIDEO.mp4 NAME-OF-OUTPUT-FILE.xlsx
+python openCV[Mac or Windows].py NAME-OF-VIDEO.mp4 NAME-OF-OUTPUT-FILE.xlsx
 ```
 
 **Important: The video needs to be in ```.mp4``` format.**
@@ -48,16 +50,16 @@ Use the keyboard arrows to navigate:
 
 <kbd>&#8594;</kbd>: Advance one frame   
 <kbd>&#8592;</kbd>: Go back one frame    
-<kbd>&#8593;</kbd>: Skip 100 frames  
-<kbd>&#8595;</kbd>: Go back 50 frames 
+<kbd>&#8593;</kbd>: Skip 60 frames  
+<kbd>&#8595;</kbd>: Go back 30 frames 
 
 ## Coding looking behavior
 
 ### Coding: Key Semantics
 #### Gaze
-<kbd>l</kbd> OR <kbd>a</kbd>: **l**eft gaze  
-<kbd>r</kbd> OR <kbd>d</kbd>: **r**ight gaze  
-<kbd>c</kbd> OR <kbd>s</kbd>: **c**enter gaze  
+<kbd>a</kbd>: **l**eft gaze  
+<kbd>d</kbd>: **r**ight gaze  
+<kbd>c</kbd>: **c**enter gaze  
 <kbd>b</kbd>: **b**link  
 <kbd>o</kbd>: look-**o**nscreen  
 <kbd>w</kbd>: look-a**w**ay  
