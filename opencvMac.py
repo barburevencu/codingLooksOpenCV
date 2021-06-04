@@ -242,6 +242,8 @@ def code(videoName, outputFile):
                 print("Frame " + str(currentFrame) + ": Start of HIGHLIGHT phase.")
             elif key == UNKNOWN:
                 print("Frame " + str(currentFrame) + ": UNKNOWN gaze direction.")
+            elif key == ONSCREEN:
+                print("Frame " + str(currentFrame) + ": Baby's looking AT the SCREEN.")
 
             
             # do not advance frame
