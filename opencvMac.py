@@ -118,6 +118,8 @@ def switch(currentPhase):
             return "alternate2"
         elif currentPhase == "alternate1":
             return "alternate2"
+        else:
+            return "alternate1"
 
 def code(videoName, outputFile):
 
